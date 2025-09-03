@@ -6,11 +6,16 @@ class VendingMachine {
     constructor(products) {
         this.products = products;
     }
+    // listProducts(): void {
+    //   console.log("Available products:");
+    //   this.products.forEach((product, index) => {
+    //     console.log(
+    //       `${index + 1}. ${product.name} is available for ${product.price} kr`
+    //     );
+    //   });
+    // }
     listProducts() {
-        console.log("Available products:");
-        this.products.forEach((product, index) => {
-            console.log(`${index + 1}. ${product.name} is available for ${product.price} kr`);
-        });
+        return this.products.map((product, index) => `${index + 1}. ${product.name} is available for ${product.price} kr`);
     }
 }
 exports.VendingMachine = VendingMachine;
