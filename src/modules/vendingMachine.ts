@@ -22,6 +22,10 @@ class VendingMachine {
         `${index + 1}. ${product.name} is available for ${product.price} kr`
     );
   }
+
+  getProduct(index: number): Product | undefined {
+    return this.products[index];
+  }
 }
 
 export { VendingMachine };

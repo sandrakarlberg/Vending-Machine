@@ -1,5 +1,5 @@
 class Wallet {
-  private balance: number;
+  public balance: number;
   
   constructor(startAmount: number) {
     this.balance = startAmount;
