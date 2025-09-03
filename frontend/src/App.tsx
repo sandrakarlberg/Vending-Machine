@@ -38,7 +38,7 @@ const App = () => {
         {machine.listProducts().map((product, index) => (
           <li key={index}>
             {product}
-            <button onClick={() => buyProduct(index)}>Purchase</button>
+            <button style={{marginLeft: 10}} onClick={() => buyProduct(index)}>Purchase</button>
           </li>
         ))}
       </ul>
