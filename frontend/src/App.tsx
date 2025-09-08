@@ -1,6 +1,6 @@
 import "./index.css";
 import { VendingMachine } from "../../src/modules/vendingMachine";
-import { Drink, Chips, Product } from "../../src/modules/product";
+import { Drink, Chips } from "../../src/modules/product";
 import { Wallet } from "../../src/modules/wallet";
 import { useState } from "react";
 
@@ -24,7 +24,9 @@ const App = () => {
   );
 
   const machine = new VendingMachine([...myChips, ...myDrinks]);
+
   const [wallet, setWallet] = useState(new Wallet(100));
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
   const buyProduct = (index: number) => {
     const product = machine.getProduct(index);
@@ -37,22 +39,38 @@ const App = () => {
     }
   };
 
+  const showInfo = (index: number) => {
+    setSelectedIndex(index === selectedIndex ? null : index);
+  };
+
   return (
     <>
       <h1>Vending Machine</h1>
       <p>You've got {wallet.getBalance()} kr</p>
       <ul style={{ listStyle: "none" }}>
-        {machine.listProducts().map((product, index) => (
-          <li key={index}>
-            {product}
-            <button
-              style={{ marginLeft: 10 }}
-              onClick={() => buyProduct(index)}
-            >
-              Purchase
-            </button>
-          </li>
-        ))}
+        {machine.listProducts().map((product, index) => {
+          const prodObj = machine.getProduct(index);
+          return (
+            <li key={index}>
+              {product}
+              <button
+                style={{ marginLeft: 10 }}
+                onClick={() => showInfo(index)}
+              >
+                Show info
+              </button>
+              <button
+                style={{ marginLeft: 10 }}
+                onClick={() => buyProduct(index)}
+              >
+                Purchase
+              </button>
+              {selectedIndex === index && prodObj && (
+                <p style={{ marginTop: "5px" }}>{prodObj.description}</p>
+              )}
+            </li>
+          );
+        })}
       </ul>
     </>
   );
